@@ -1,0 +1,65 @@
+[
+  {
+    "name": "text_cleanup_pipeline",
+    "nodes": [
+      {"id": "normalize", "plugin": "text.normalize", "input": {"text": "  Hello World  ", "lowercase": true, "strip": true}},
+      {"id": "tokenize", "plugin": "text.tokenize", "input": {"text": "Hello World"}, "depends_on": ["normalize"]},
+      {"id": "count", "plugin": "text.count", "input": {"text": "Hello World"}, "depends_on": ["normalize"]}
+    ]
+  },
+  {
+    "name": "analytics_summary",
+    "nodes": [
+      {"id": "profile", "plugin": "analysis.numeric_profile", "input": {"values": [2, 4, 6, 8]}}
+    ]
+  },
+  {
+    "name": "duplicate_filter",
+    "nodes": [
+      {"id": "unique", "plugin": "data.unique", "input": {"values": ["a", "a", "b"]}},
+      {"id": "sort", "plugin": "data.sort", "input": {"values": [3, 1, 2]}, "depends_on": ["unique"]}
+    ]
+  },
+  {
+    "name": "keyword_density_report",
+    "nodes": [
+      {"id": "density", "plugin": "analysis.keyword_density", "input": {"text": "alpha beta alpha", "keywords": ["alpha", "beta"]}}
+    ]
+  },
+  {
+    "name": "section_indexing",
+    "nodes": [
+      {"id": "sections", "plugin": "analysis.section_index", "input": {"text": "# Intro\n## Details"}}
+    ]
+  },
+  {
+    "name": "list_chunking",
+    "nodes": [
+      {"id": "chunks", "plugin": "analysis.chunk_list", "input": {"items": [1, 2, 3, 4, 5], "chunk_size": 2}}
+    ]
+  },
+  {
+    "name": "reverse_text",
+    "nodes": [
+      {"id": "reverse", "plugin": "reverse", "input": {"text": "abcde"}}
+    ]
+  },
+  {
+    "name": "echo_flow",
+    "nodes": [
+      {"id": "echo", "plugin": "echo", "input": {"message": "hello"}}
+    ]
+  },
+  {
+    "name": "math_flow",
+    "nodes": [
+      {"id": "add", "plugin": "add_numbers", "input": {"a": 1, "b": 2}}
+    ]
+  },
+  {
+    "name": "validation_flow",
+    "nodes": [
+      {"id": "check", "plugin": "validation.is_non_empty", "input": {"value": "ok"}}
+    ]
+  }
+]

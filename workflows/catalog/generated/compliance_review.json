@@ -1,0 +1,67 @@
+[
+  {
+    "name": "compliance_review",
+    "nodes": [
+      {
+        "id": "email",
+        "plugin": "validate.email",
+        "input": {
+          "value": "auditor@example.com"
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "range",
+        "plugin": "validate.range",
+        "input": {
+          "value": 12,
+          "minimum": 1,
+          "maximum": 31
+        },
+        "depends_on": [
+          "email"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "length",
+        "plugin": "validate.length",
+        "input": {
+          "text": "policy document",
+          "minimum": 5,
+          "maximum": 80
+        },
+        "depends_on": [
+          "range"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "pad",
+        "plugin": "transform.pad",
+        "input": {
+          "text": "approved",
+          "width": 12,
+          "align": "right"
+        },
+        "depends_on": [
+          "length"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

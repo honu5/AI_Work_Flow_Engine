@@ -1,0 +1,90 @@
+[
+  {
+    "name": "marketing_attribution",
+    "nodes": [
+      {
+        "id": "count",
+        "plugin": "aggregate.count_by",
+        "input": {
+          "records": [
+            {
+              "channel": "email",
+              "clicks": 12
+            },
+            {
+              "channel": "social",
+              "clicks": 45
+            },
+            {
+              "channel": "email",
+              "clicks": 8
+            }
+          ],
+          "field": "channel"
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "top",
+        "plugin": "aggregate.top_n",
+        "input": {
+          "records": [
+            {
+              "channel": "email",
+              "clicks": 12
+            },
+            {
+              "channel": "social",
+              "clicks": 45
+            },
+            {
+              "channel": "email",
+              "clicks": 8
+            }
+          ],
+          "field": "clicks",
+          "n": 2
+        },
+        "depends_on": [
+          "count"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "sum",
+        "plugin": "aggregate.sum_field",
+        "input": {
+          "records": [
+            {
+              "channel": "email",
+              "clicks": 12
+            },
+            {
+              "channel": "social",
+              "clicks": 45
+            },
+            {
+              "channel": "email",
+              "clicks": 8
+            }
+          ],
+          "field": "clicks"
+        },
+        "depends_on": [
+          "top"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

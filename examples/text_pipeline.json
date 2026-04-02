@@ -1,0 +1,8 @@
+{
+  "name": "text_pipeline_fixture",
+  "nodes": [
+    {"id": "normalize", "plugin": "text.normalize", "input": {"text": "  Hello World  ", "lowercase": true, "strip": true}},
+    {"id": "tokenize", "plugin": "text.tokenize", "input": {"text": "hello world"}, "depends_on": ["normalize"]},
+    {"id": "count", "plugin": "text.count", "input": {"text": "hello world"}, "depends_on": ["normalize"]}
+  ]
+}

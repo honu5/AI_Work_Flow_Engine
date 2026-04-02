@@ -1,0 +1,11 @@
+[
+  {
+    "name": "log_enrichment",
+    "nodes": [
+      {"id": "wrap", "plugin": "transform.wrap_columns", "input": {"text": "error timeout while connecting to primary database shard", "width": 20}},
+      {"id": "density", "plugin": "analysis.keyword_density", "input": {"text": "error timeout database shard timeout", "keywords": ["timeout", "database", "error"]}, "depends_on": ["wrap"]},
+      {"id": "unique", "plugin": "data.unique", "input": {"values": ["timeout", "database", "timeout", "shard"]}, "depends_on": ["density"]},
+      {"id": "count", "plugin": "aggregate.count_by", "input": {"records": [{"level": "error"}, {"level": "warn"}, {"level": "error"}], "field": "level"}, "depends_on": ["unique"]}
+    ]
+  }
+]

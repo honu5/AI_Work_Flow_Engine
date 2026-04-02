@@ -1,0 +1,27 @@
+{
+  "name": "text_audit_07",
+  "nodes": [
+    {
+      "id": "n1",
+      "plugin": "text.normalize",
+      "input": {
+        "text": "  Audit  ",
+        "strip": true
+      }
+    },
+    {
+      "id": "n2",
+      "plugin": "format.join",
+      "input": {
+        "values": [
+          "text_audit",
+          "7"
+        ],
+        "separator": ":"
+      },
+      "depends_on": [
+        "n1"
+      ]
+    }
+  ]
+}

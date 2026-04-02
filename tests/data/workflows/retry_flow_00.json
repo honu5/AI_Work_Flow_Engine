@@ -1,0 +1,26 @@
+{
+  "name": "retry_flow_00",
+  "nodes": [
+    {
+      "id": "n1",
+      "plugin": "sleep",
+      "input": {
+        "seconds": 0.01
+      }
+    },
+    {
+      "id": "n2",
+      "plugin": "format.join",
+      "input": {
+        "values": [
+          "retry_flow",
+          "0"
+        ],
+        "separator": ":"
+      },
+      "depends_on": [
+        "n1"
+      ]
+    }
+  ]
+}

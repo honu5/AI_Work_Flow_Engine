@@ -1,0 +1,52 @@
+[
+  {
+    "name": "release_gate",
+    "nodes": [
+      {
+        "id": "tests",
+        "plugin": "logic.all",
+        "input": {
+          "values": [
+            true,
+            true,
+            false
+          ]
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "gate",
+        "plugin": "route.gate",
+        "input": {
+          "condition": false,
+          "value": "hold"
+        },
+        "depends_on": [
+          "tests"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "echo",
+        "plugin": "echo",
+        "input": {
+          "message": "release-gate"
+        },
+        "depends_on": [
+          "gate"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

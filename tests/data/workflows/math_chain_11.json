@@ -1,0 +1,27 @@
+{
+  "name": "math_chain_11",
+  "nodes": [
+    {
+      "id": "n1",
+      "plugin": "add_numbers",
+      "input": {
+        "a": 1,
+        "b": 2
+      }
+    },
+    {
+      "id": "n2",
+      "plugin": "format.join",
+      "input": {
+        "values": [
+          "math_chain",
+          "11"
+        ],
+        "separator": ":"
+      },
+      "depends_on": [
+        "n1"
+      ]
+    }
+  ]
+}

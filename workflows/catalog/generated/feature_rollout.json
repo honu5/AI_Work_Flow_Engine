@@ -1,0 +1,51 @@
+[
+  {
+    "name": "feature_rollout",
+    "nodes": [
+      {
+        "id": "flag",
+        "plugin": "logic.not",
+        "input": {
+          "value": false
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "route",
+        "plugin": "route.switch",
+        "input": {
+          "key": "beta",
+          "routes": {
+            "beta": "enabled",
+            "stable": "disabled"
+          }
+        },
+        "depends_on": [
+          "flag"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "notify",
+        "plugin": "echo",
+        "input": {
+          "message": "rollout-stage"
+        },
+        "depends_on": [
+          "route"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

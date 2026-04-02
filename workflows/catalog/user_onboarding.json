@@ -1,0 +1,12 @@
+[
+  {
+    "name": "user_onboarding",
+    "nodes": [
+      {"id": "email", "plugin": "validate.email", "input": {"value": "user@example.com"}},
+      {"id": "name_length", "plugin": "validate.length", "input": {"text": "Ada Lovelace", "minimum": 2, "maximum": 80}, "depends_on": ["email"]},
+      {"id": "welcome", "plugin": "text.normalize", "input": {"text": "  Welcome Ada  ", "strip": true}, "depends_on": ["name_length"]},
+      {"id": "tokenize", "plugin": "text.tokenize", "input": {"text": "welcome ada"}, "depends_on": ["welcome"]},
+      {"id": "finalize", "plugin": "format.join", "input": {"values": ["onboarded", "user"], "separator": ":"}, "depends_on": ["tokenize"]}
+    ]
+  }
+]

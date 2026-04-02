@@ -1,0 +1,77 @@
+[
+  {
+    "name": "document_ingest",
+    "nodes": [
+      {
+        "id": "capture",
+        "plugin": "echo",
+        "input": {
+          "message": "upload://batch-17"
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "normalize",
+        "plugin": "text.normalize",
+        "input": {
+          "text": "  Quarterly Report Q1  ",
+          "lowercase": true,
+          "strip": true
+        },
+        "depends_on": [
+          "capture"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "tokenize",
+        "plugin": "text.tokenize",
+        "input": {
+          "text": "quarterly report q1"
+        },
+        "depends_on": [
+          "normalize"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "sections",
+        "plugin": "analysis.section_index",
+        "input": {
+          "text": "# Summary\n## Revenue"
+        },
+        "depends_on": [
+          "tokenize"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "slug",
+        "plugin": "transform.slugify",
+        "input": {
+          "text": "quarterly-report-q1"
+        },
+        "depends_on": [
+          "sections"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "name": "validation_chain",
+  "nodes": [
+    {"id": "length", "plugin": "validate.length", "input": {"text": "workflow", "minimum": 3, "maximum": 20}},
+    {"id": "contains", "plugin": "validate.contains", "input": {"text": "workflow", "needle": "flow"}, "depends_on": ["length"]}
+  ]
+}

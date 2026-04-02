@@ -1,0 +1,83 @@
+[
+  {
+    "name": "order_fulfillment",
+    "nodes": [
+      {
+        "id": "price",
+        "plugin": "transform.coerce_float",
+        "input": {
+          "value": "89.99"
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "qty",
+        "plugin": "transform.coerce_int",
+        "input": {
+          "value": "3"
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "subtotal",
+        "plugin": "math.multiply",
+        "input": {
+          "values": [
+            89.99,
+            3
+          ]
+        },
+        "depends_on": [
+          "price",
+          "qty"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "clamp",
+        "plugin": "math.clamp",
+        "input": {
+          "value": 270.0,
+          "minimum": 0,
+          "maximum": 500
+        },
+        "depends_on": [
+          "subtotal"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "label",
+        "plugin": "format.join",
+        "input": {
+          "values": [
+            "order",
+            "ready"
+          ],
+          "separator": "-"
+        },
+        "depends_on": [
+          "clamp"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

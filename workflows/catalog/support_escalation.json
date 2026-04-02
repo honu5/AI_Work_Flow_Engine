@@ -1,0 +1,11 @@
+[
+  {
+    "name": "support_escalation",
+    "nodes": [
+      {"id": "priority", "plugin": "transform.coerce_int", "input": {"value": "1"}},
+      {"id": "switch", "plugin": "route.switch", "input": {"key": "p1", "routes": {"p1": "immediate", "default": "standard"}}, "depends_on": ["priority"]},
+      {"id": "pad", "plugin": "transform.pad", "input": {"text": "ticket", "width": 12, "align": "center"}, "depends_on": ["switch"]},
+      {"id": "echo", "plugin": "echo", "input": {"message": "escalated"}, "depends_on": ["pad"]}
+    ]
+  }
+]

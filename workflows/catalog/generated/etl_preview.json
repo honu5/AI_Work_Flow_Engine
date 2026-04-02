@@ -1,0 +1,88 @@
+[
+  {
+    "name": "etl_preview",
+    "nodes": [
+      {
+        "id": "map",
+        "plugin": "data.map",
+        "input": {
+          "values": [
+            {
+              "id": 1,
+              "value": 10
+            },
+            {
+              "id": 2,
+              "value": 20
+            },
+            {
+              "id": 3,
+              "value": 30
+            }
+          ],
+          "key": "value"
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "sort",
+        "plugin": "data.sort",
+        "input": {
+          "values": [
+            30,
+            10,
+            20
+          ]
+        },
+        "depends_on": [
+          "map"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "median",
+        "plugin": "data.median",
+        "input": {
+          "values": [
+            30,
+            10,
+            20
+          ]
+        },
+        "depends_on": [
+          "sort"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "unique",
+        "plugin": "data.unique",
+        "input": {
+          "values": [
+            "a",
+            "b",
+            "a",
+            "c"
+          ]
+        },
+        "depends_on": [
+          "median"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,59 @@
+[
+  {
+    "name": "support_macro",
+    "nodes": [
+      {
+        "id": "greet",
+        "plugin": "text.normalize",
+        "input": {
+          "text": "  Hello, how can we help?  ",
+          "strip": true
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "ngram",
+        "plugin": "text.ngram",
+        "input": {
+          "tokens": [
+            "hello",
+            "how",
+            "can",
+            "we",
+            "help"
+          ],
+          "size": 2
+        },
+        "depends_on": [
+          "greet"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "join",
+        "plugin": "format.join",
+        "input": {
+          "values": [
+            "macro",
+            "ready"
+          ],
+          "separator": ":"
+        },
+        "depends_on": [
+          "ngram"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "name": "json_pick_14",
+  "nodes": [
+    {
+      "id": "n1",
+      "plugin": "data.unique",
+      "input": {
+        "values": [
+          "x",
+          "y",
+          "x"
+        ]
+      }
+    },
+    {
+      "id": "n2",
+      "plugin": "format.join",
+      "input": {
+        "values": [
+          "json_pick",
+          "14"
+        ],
+        "separator": ":"
+      },
+      "depends_on": [
+        "n1"
+      ]
+    }
+  ]
+}

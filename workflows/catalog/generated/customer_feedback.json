@@ -1,0 +1,67 @@
+[
+  {
+    "name": "customer_feedback",
+    "nodes": [
+      {
+        "id": "normalize",
+        "plugin": "text.normalize",
+        "input": {
+          "text": "  Great service, quick response!  ",
+          "strip": true
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "density",
+        "plugin": "analysis.keyword_density",
+        "input": {
+          "text": "great service quick response",
+          "keywords": [
+            "great",
+            "service"
+          ]
+        },
+        "depends_on": [
+          "normalize"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "count",
+        "plugin": "text.count",
+        "input": {
+          "text": "great service quick response"
+        },
+        "depends_on": [
+          "density"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "wrap",
+        "plugin": "transform.wrap_columns",
+        "input": {
+          "text": "great service quick response",
+          "width": 16
+        },
+        "depends_on": [
+          "count"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

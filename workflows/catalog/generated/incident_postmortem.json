@@ -1,0 +1,71 @@
+[
+  {
+    "name": "incident_postmortem",
+    "nodes": [
+      {
+        "id": "timeline",
+        "plugin": "text.tokenize",
+        "input": {
+          "text": "14:02 alert 14:05 rollback 14:20 resolved"
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "profile",
+        "plugin": "analysis.numeric_profile",
+        "input": {
+          "values": [
+            2,
+            3,
+            18,
+            20
+          ]
+        },
+        "depends_on": [
+          "timeline"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "truncate",
+        "plugin": "transform.truncate",
+        "input": {
+          "text": "postmortem draft content goes here",
+          "max_length": 24
+        },
+        "depends_on": [
+          "profile"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "publish",
+        "plugin": "format.join",
+        "input": {
+          "values": [
+            "postmortem",
+            "ready"
+          ],
+          "separator": "/"
+        },
+        "depends_on": [
+          "truncate"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

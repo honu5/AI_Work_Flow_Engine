@@ -1,0 +1,12 @@
+[
+  {
+    "name": "fraud_scoring",
+    "nodes": [
+      {"id": "amount", "plugin": "transform.coerce_float", "input": {"value": "4200"}},
+      {"id": "profile", "plugin": "analysis.numeric_profile", "input": {"values": [10, 50, 4200, 15]}, "depends_on": ["amount"]},
+      {"id": "gate", "plugin": "route.gate", "input": {"condition": true, "value": "review"}, "depends_on": ["profile"]},
+      {"id": "top", "plugin": "aggregate.top_n", "input": {"records": [{"score": 2}, {"score": 9}, {"score": 5}], "field": "score", "n": 2}, "depends_on": ["gate"]},
+      {"id": "merge", "plugin": "aggregate.merge_dicts", "input": {"mappings": [{"risk": "high"}, {"case": "fraud-001"}]}, "depends_on": ["top"]}
+    ]
+  }
+]

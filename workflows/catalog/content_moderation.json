@@ -1,0 +1,12 @@
+[
+  {
+    "name": "content_moderation",
+    "nodes": [
+      {"id": "normalize", "plugin": "text.normalize", "input": {"text": "  User Generated Content  ", "lowercase": true, "strip": true}},
+      {"id": "contains", "plugin": "validate.contains", "input": {"text": "user generated content", "needle": "content"}, "depends_on": ["normalize"]},
+      {"id": "replace", "plugin": "transform.replace_chars", "input": {"text": "user-generated-content", "mapping": {"-": " "}}, "depends_on": ["contains"]},
+      {"id": "slug", "plugin": "transform.slugify", "input": {"text": "user generated content"}, "depends_on": ["replace"]},
+      {"id": "length", "plugin": "validate.length", "input": {"text": "user-generated-content", "minimum": 5, "maximum": 64}, "depends_on": ["slug"]}
+    ]
+  }
+]

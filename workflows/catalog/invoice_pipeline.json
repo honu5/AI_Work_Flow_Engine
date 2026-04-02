@@ -1,0 +1,12 @@
+[
+  {
+    "name": "invoice_pipeline",
+    "nodes": [
+      {"id": "parse_amount", "plugin": "transform.coerce_float", "input": {"value": "1299.50"}},
+      {"id": "parse_tax", "plugin": "transform.coerce_float", "input": {"value": "104.00"}, "depends_on": ["parse_amount"]},
+      {"id": "sum", "plugin": "add_numbers", "input": {"a": 1299, "b": 104}, "depends_on": ["parse_tax"]},
+      {"id": "validate_total", "plugin": "validate.range", "input": {"value": 1403, "minimum": 0, "maximum": 10000}, "depends_on": ["sum"]},
+      {"id": "slug", "plugin": "transform.slugify", "input": {"text": "Invoice ACME March"}, "depends_on": ["validate_total"]}
+    ]
+  }
+]

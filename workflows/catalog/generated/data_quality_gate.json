@@ -1,0 +1,86 @@
+[
+  {
+    "name": "data_quality_gate",
+    "nodes": [
+      {
+        "id": "required",
+        "plugin": "validate.required_keys",
+        "input": {
+          "data": {
+            "source": "warehouse"
+          },
+          "keys": [
+            "source"
+          ]
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "group",
+        "plugin": "aggregate.group_sum",
+        "input": {
+          "records": [
+            {
+              "sku": "A1",
+              "qty": 4
+            },
+            {
+              "sku": "B2",
+              "qty": 1
+            },
+            {
+              "sku": "A1",
+              "qty": 2
+            }
+          ],
+          "group_field": "sku",
+          "value_field": "qty"
+        },
+        "depends_on": [
+          "required"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "profile",
+        "plugin": "analysis.numeric_profile",
+        "input": {
+          "values": [
+            4,
+            1,
+            2
+          ]
+        },
+        "depends_on": [
+          "group"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "gate",
+        "plugin": "route.gate",
+        "input": {
+          "condition": true,
+          "value": "pass"
+        },
+        "depends_on": [
+          "profile"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

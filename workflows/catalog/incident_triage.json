@@ -1,0 +1,13 @@
+[
+  {
+    "name": "incident_triage",
+    "nodes": [
+      {"id": "ingest", "plugin": "echo", "input": {"message": "incident-42"}},
+      {"id": "normalize", "plugin": "text.normalize", "input": {"text": "  CRITICAL: Database latency spike  ", "lowercase": true, "strip": true}, "depends_on": ["ingest"]},
+      {"id": "tokenize", "plugin": "text.tokenize", "input": {"text": "critical database latency spike"}, "depends_on": ["normalize"]},
+      {"id": "profile", "plugin": "analysis.numeric_profile", "input": {"values": [120, 340, 890, 1200]}, "depends_on": ["tokenize"]},
+      {"id": "route", "plugin": "route.gate", "input": {"condition": true, "value": "escalate"}, "depends_on": ["profile"]},
+      {"id": "report", "plugin": "format.join", "input": {"values": ["incident", "triage", "complete"], "separator": "/"}, "depends_on": ["route"]}
+    ]
+  }
+]

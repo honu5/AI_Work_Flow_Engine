@@ -1,0 +1,73 @@
+[
+  {
+    "name": "security_scan",
+    "nodes": [
+      {
+        "id": "contains",
+        "plugin": "validate.contains",
+        "input": {
+          "text": "auth token leaked in logs",
+          "needle": "token"
+        },
+        "depends_on": [],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "replace",
+        "plugin": "transform.replace_chars",
+        "input": {
+          "text": "auth-token-leaked",
+          "mapping": {
+            "-": "_"
+          }
+        },
+        "depends_on": [
+          "contains"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "route",
+        "plugin": "route.switch",
+        "input": {
+          "key": "high",
+          "routes": {
+            "high": "block",
+            "low": "allow"
+          }
+        },
+        "depends_on": [
+          "replace"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      },
+      {
+        "id": "report",
+        "plugin": "format.join",
+        "input": {
+          "values": [
+            "security",
+            "scan"
+          ],
+          "separator": "::"
+        },
+        "depends_on": [
+          "route"
+        ],
+        "retry": null,
+        "timeout_seconds": null,
+        "cache": null,
+        "requires": []
+      }
+    ]
+  }
+]

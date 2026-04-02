@@ -1,0 +1,26 @@
+{
+  "name": "validate_email_flow_08",
+  "nodes": [
+    {
+      "id": "n1",
+      "plugin": "validate.email",
+      "input": {
+        "value": "ops@example.com"
+      }
+    },
+    {
+      "id": "n2",
+      "plugin": "format.join",
+      "input": {
+        "values": [
+          "validate_email_flow",
+          "8"
+        ],
+        "separator": ":"
+      },
+      "depends_on": [
+        "n1"
+      ]
+    }
+  ]
+}

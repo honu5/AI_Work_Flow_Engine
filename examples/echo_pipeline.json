@@ -1,0 +1,6 @@
+{
+  "name": "echo_pipeline",
+  "nodes": [
+    {"id": "echo", "plugin": "echo", "input": {"message": "hello"}}
+  ]
+}

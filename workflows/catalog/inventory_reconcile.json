@@ -1,0 +1,11 @@
+[
+  {
+    "name": "inventory_reconcile",
+    "nodes": [
+      {"id": "group", "plugin": "aggregate.group_sum", "input": {"records": [{"sku": "a", "qty": 3}, {"sku": "b", "qty": 1}, {"sku": "a", "qty": 2}], "group_field": "sku", "value_field": "qty"}},
+      {"id": "sort", "plugin": "data.sort", "input": {"values": [3, 1, 2]}, "depends_on": ["group"]},
+      {"id": "median", "plugin": "data.median", "input": {"values": [3, 1, 2]}, "depends_on": ["sort"]},
+      {"id": "report", "plugin": "format.join", "input": {"values": ["inventory", "reconciled"], "separator": "::"}, "depends_on": ["median"]}
+    ]
+  }
+]
